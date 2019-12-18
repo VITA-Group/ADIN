@@ -1,8 +1,9 @@
 from __future__ import print_function, division
-
+import os
 from tqdm import tqdm
 import torch.nn.functional as F
-from baseline.train.functions import *
+from pridUtils.utils import save_parallel_model
+from training.functions import *
 
 
 def train_epoch(model, optimizer, writer, train_dataloaders, use_loss, phase, epoch, multibranch):
@@ -75,7 +76,5 @@ def train_model(model, optimizer, scheduler, writer, train_dataloaders, num_epoc
 
             # if in validation phase save model
             if phase == 'train':
-                # if (epoch + 2) > 20 or (epoch + 2) > num_epochs / 2:
-                if epoch + 5 >= num_epochs:
-                    save_path = os.path.join(log_dir, 'saved_model_%s.pth' % (epoch + 1))
-                    model = save_parallel_model(model, save_path)
+                save_path = os.path.join(log_dir, 'saved_model_%s.pth' % (epoch + 1))
+                model = save_parallel_model(model, save_path)

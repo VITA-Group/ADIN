@@ -1,7 +1,7 @@
 from __future__ import print_function, division
 
-from baseline.models.models import *
-from baseline.models.modelsExt import *
+from models.models import *
+from models.modelsExt import *
 from datasetUtils.datasetStat import Nclass, NcamId
 
 

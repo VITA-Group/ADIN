@@ -10,9 +10,11 @@ def parse_args():
     parser.add_argument('--model', default='resnet', type=str, metavar='MODEL',
                         help='training model')
     parser.add_argument('--loss', default='crossEntropy', type=str, metavar='LOSS',
-                        help='training dataset')
+                        help='training loss')
+    parser.add_argument('--resume-checkpoint', default='', type=str,
+                        help='resume timestamp')
     parser.add_argument('--batch-size', default=64, type=int, metavar='BATCHSIZE',
-                        help='training dataset')
+                        help='training batch size')
     parser.add_argument('--optimizer', default='sgd', type=str,
                         help='training optimizer')
     parser.add_argument('--scheduler', default='step', type=str,
@@ -33,20 +35,17 @@ def parse_args():
     parser.add_argument('--log-dir', default='./prid_log', type=str)
     parser.add_argument('--tfboard-dir', default='./prid_tfboard', type=str)
 
-    args = parser.parse_args()
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    name = '%s_%s_%s_%s' % (args.dataset, args.model, args.loss, timestamp)
-    print(name + '\n')
+    parser.add_argument('--rerank', action='store_true',
+                        help='enable self-supervision training')
 
+    args = parser.parse_args()
     args.milestones = [int(x) for x in args.milestones.split(',')]
 
-    os.makedirs(args.log_dir, exist_ok=True)
-    args.log_dir = os.path.join(args.log_dir, args.dataset, name)
-    os.makedirs(args.log_dir, exist_ok=True)
-
-    os.makedirs(args.tfboard_dir, exist_ok=True)
-    args.tfboard_dir = os.path.join(args.tfboard_dir, args.dataset, name)
-    os.makedirs(args.tfboard_dir, exist_ok=True)
+    if args.resume_checkpoint:
+        resume_checkpoint = args.resume_checkpoint.split('/')[-1].split('_')
+        resume_path = os.path.join(args.log_dir, resume_checkpoint[0], args.resume_checkpoint)
+        resume_epoch = max([int(m.split('_')[-1].split('.')[0]) for m in os.listdir(resume_path) if m.endswith(".pth")])
+        args.resume_path = os.path.join(resume_path, 'saved_model_%s.pth' % resume_epoch)
 
     return args
 

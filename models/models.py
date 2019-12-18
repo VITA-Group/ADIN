@@ -1,4 +1,4 @@
-from baseline.models.block import *
+from models.block import *
 
 
 # Define the ResNet50-based Model

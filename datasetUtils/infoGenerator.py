@@ -1,6 +1,73 @@
+import os
 import pandas as pd
 
-from pridUtils.working_dir_settings import *
+from pridUtils.utils import *
+
+prid_data_root_dir = '/home/yeyuan/prid_data'
+dataset_info = {
+    "MSMT17": {
+        "train": {
+            "dir": os.path.join(prid_data_root_dir, "MSMT17_V1", "train"),
+            "csv": os.path.join(prid_data_root_dir, "MSMT17_V1", "list_train.txt"),
+            "info": os.path.join(prid_data_root_dir, "MSMT17_V1", "info", "train_info.txt")},
+
+        "val": {
+            "dir": os.path.join(prid_data_root_dir, "MSMT17_V1", "train"),
+            "csv": os.path.join(prid_data_root_dir, "MSMT17_V1", "list_val.txt"),
+            "info": os.path.join(prid_data_root_dir, "MSMT17_V1", "info", "val_info.txt")},
+
+        "query": {
+            "dir": os.path.join(prid_data_root_dir, "MSMT17_V1", "test"),
+            "csv": os.path.join(prid_data_root_dir, "MSMT17_V1", "list_query.txt"),
+            "info": os.path.join(prid_data_root_dir, "MSMT17_V1", "info", "query_info.txt")},
+
+        "gallery": {
+            "dir": os.path.join(prid_data_root_dir, "MSMT17_V1", "test"),
+            "csv": os.path.join(prid_data_root_dir, "MSMT17_V1", "list_gallery.txt"),
+            "info": os.path.join(prid_data_root_dir, "MSMT17_V1", "info", "gallery_info.txt")},
+    },
+
+    "DukeMTMC": {
+        "train": {
+            "dir": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "bounding_box_train"),
+            "info": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "info", "train_info.txt")},
+        # "info": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "info", "train_Distractors_All_info.txt")},
+
+        "val": {
+            "dir": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "bounding_box_train"),
+            "info": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "info", "val_info.txt")},
+
+        "query": {
+            "dir": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "query"),
+            "info": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "info", "query_info.txt")},
+
+        "gallery": {
+            "dir": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "bounding_box_test"),
+            "info": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "info", "gallery_info.txt")},
+        # "info": os.path.join(prid_data_root_dir, "DukeMTMC-reID", "info", "gallery_Distractors_info.txt")},
+    },
+
+    "Market1501": {
+        "train": {
+            "dir": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "bounding_box_train"),
+            "info": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "info", "train_info.txt")},
+        # "info": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "info", "train_Distractors_All_info.txt")},
+
+        "val": {
+            "dir": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "bounding_box_train"),
+            "info": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "info", "val_info.txt")},
+
+        "query": {
+            "dir": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "query"),
+            "info": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "info", "query_info.txt")},
+
+        "gallery": {
+            "dir": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "bounding_box_test"),
+            "info": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "info", "gallery_info.txt")},
+        # "info": os.path.join(prid_data_root_dir, "Market-1501-v15.09.15", "info", "gallery_Distractors_info.txt")},
+    },
+
+}
 
 
 def savecsv(info, filepath):
@@ -10,7 +77,7 @@ def savecsv(info, filepath):
 
 
 def MSMT17_info(MSMT17_datasetInfo):
-    make_dir("/home/yeyuan/prid_data/MSMT17_V1/info/")
+    os.makedirs("/home/yeyuan/prid_data/MSMT17_V1/info/", exist_ok=True)
 
     for subset in ['val', 'train', 'query', 'gallery']:
         df = pd.read_csv(MSMT17_datasetInfo[subset]['csv'], header=None, delimiter=' ', names=['img', 'label'])
@@ -99,20 +166,21 @@ def info4test(datasetInfo):
 
 
 def DukeMTMC_info(DukeMTMC_datasetInfo):
-    make_dir("/home/yeyuan/prid_data/DukeMTMC-reID/info/")
+    os.makedirs("/home/yeyuan/prid_data/DukeMTMC-reID/info/", exist_ok=True)
     info4train(DukeMTMC_datasetInfo)
     info4test(DukeMTMC_datasetInfo)
 
 
 def Market1501_info(Market1501_datasetInfo):
-    make_dir("/home/yeyuan/prid_data/Market-1501-v15.09.15/info/")
+    os.makedirs("/home/yeyuan/prid_data/Market-1501-v15.09.15/info/", exist_ok=True)
     info4train(Market1501_datasetInfo)
     info4test(Market1501_datasetInfo)
 
 
-Market1501_info(dataset_info["Market1501"])
-DukeMTMC_info(dataset_info["DukeMTMC"])
-MSMT17_info(dataset_info["MSMT17"])
+if __name__ == '__main__':
+    Market1501_info(dataset_info["Market1501"])
+    DukeMTMC_info(dataset_info["DukeMTMC"])
+    MSMT17_info(dataset_info["MSMT17"])
 
-# info4train_noVal(dataset_info["Market1501"])
-# info4train_noVal(dataset_info["DukeMTMC"])
+    # info4train_noVal(dataset_info["Market1501"])
+    # info4train_noVal(dataset_info["DukeMTMC"])
