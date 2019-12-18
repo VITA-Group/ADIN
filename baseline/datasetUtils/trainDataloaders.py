@@ -1,10 +1,8 @@
 from __future__ import print_function, division
 
-from shutil import copy2
-
-from datasetUtils.dataset import *
-from datasetUtils.infoGenerator import *
-from pridUtils.random_erasing import RandomErasing
+from baseline.datasetUtils.dataset import *
+from baseline.datasetUtils.infoGenerator import *
+from baseline.pridUtils.random_erasing import RandomErasing
 
 
 class RectScale(object):

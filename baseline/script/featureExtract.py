@@ -3,9 +3,8 @@ from __future__ import print_function, division
 import scipy.io
 from tqdm import tqdm
 
-from pridUtils.utils import *
-from training.functions import *
-from datasetUtils.testDataloaders import *
+from baseline.training.functions import *
+from baseline.datasetUtils.testDataloaders import *
 
 from argument import *
 

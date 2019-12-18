@@ -6,8 +6,8 @@ from tensorboardX import SummaryWriter
 
 sys.path.append(os.getcwd())
 
-from training.config import *
-from datasetUtils.trainDataloaders import *
+from baseline.training.config import *
+from baseline.datasetUtils.trainDataloaders import *
 from argument import *
 
 args = parse_args()

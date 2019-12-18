@@ -9,7 +9,7 @@ def parse_args():
                         help='training dataset')
     parser.add_argument('--model', default='resnet', type=str, metavar='MODEL',
                         help='training model')
-    parser.add_argument('--loss', default='crossEntropy', type=str, metavar='LOSS',
+    parser.add_argument('--loss', default='crossEntropy-classCamId', type=str, metavar='LOSS',
                         help='training loss')
     parser.add_argument('--resume-checkpoint', default='', type=str,
                         help='resume timestamp')
@@ -37,6 +37,12 @@ def parse_args():
 
     parser.add_argument('--rerank', action='store_true',
                         help='enable self-supervision training')
+    parser.set_defaults(rerank=False)
+
+    parser.add_argument('--posloss', default='XE', type=str, metavar='LOSS',
+                        help='training adversarial loss')
+    parser.add_argument('--negloss', default='focalEntropy', type=str, metavar='LOSS',
+                        help='training adversarial loss')
 
     args = parser.parse_args()
     args.milestones = [int(x) for x in args.milestones.split(',')]

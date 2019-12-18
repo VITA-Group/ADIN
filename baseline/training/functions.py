@@ -1,8 +1,8 @@
 from __future__ import print_function, division
 
-from models.models import *
-from models.modelsExt import *
-from datasetUtils.datasetStat import Nclass, NcamId
+from baseline.models.models import *
+from baseline.models.modelsExt import *
+from baseline.datasetUtils.datasetStat import Nclass, NcamId
 
 
 # Define model
@@ -56,7 +56,7 @@ def getNumTrainClass(use_dataset, use_loss):
 # Get labels
 # ---------------------------
 def getLable(sample, use_loss, use_gpu):
-    if use_loss in ["crossEntropy"]:
+    if use_loss == "crossEntropy":
         labels = Variable(sample['label']).cuda() if use_gpu else Variable(sample['label'])
     elif use_loss == "classCamId":
         camIds = torch.LongTensor([c - 1 for c in sample['camId']])

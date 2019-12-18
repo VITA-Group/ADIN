@@ -1,7 +1,6 @@
-import os
 import pandas as pd
 
-from pridUtils.utils import *
+from baseline.pridUtils.utils import *
 
 prid_data_root_dir = '/home/yeyuan/prid_data'
 dataset_info = {

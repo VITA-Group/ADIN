@@ -1,10 +1,9 @@
-import os, sys
 import torch
 import numpy as np
 import scipy.io
 from tqdm import tqdm
 
-from pridUtils.re_ranking import re_ranking
+from baseline.pridUtils.re_ranking import re_ranking
 from argument import *
 
 args = parse_args()

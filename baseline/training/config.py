@@ -2,8 +2,8 @@ from __future__ import print_function, division
 import os
 from tqdm import tqdm
 import torch.nn.functional as F
-from pridUtils.utils import save_parallel_model
-from training.functions import *
+from baseline.pridUtils.utils import save_parallel_model
+from baseline.training.functions import *
 
 
 def train_epoch(model, optimizer, writer, train_dataloaders, use_loss, phase, epoch, multibranch):

@@ -1,4 +1,4 @@
-from models.block import *
+from baseline.models.block import *
 
 import torch.nn as nn
 from torchvision import models
