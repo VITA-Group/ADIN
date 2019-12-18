@@ -29,8 +29,9 @@ Furthermore, we find that the imbalance of nuisance classes jeopardizes the adve
 ## Training
 
 Please sequentially finish the following steps:
-1. `python script/train.py --loss crossEntropy`
-1. `python script/train.py --loss classCamId`
+1. `python script/train.py --dataset MSMT17 --loss crossEntropy` (save checkpoint)
+1. `python script/train.py --dataset MSMT17 --loss classCamIdAndTimeStamp --resume-checkpoint timestamp`
+1. 
 
 ## Evaluation
 
